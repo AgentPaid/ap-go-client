@@ -30,7 +30,7 @@ func main() {
         "customer-id",
         "event-name",
         map[string]any{
-            "your": "data",
+            "key": "data",
         },
     )
 
@@ -49,11 +49,3 @@ func main() {
 - Buffer-based flushing (at 100 events)
 - Thread-safe operations
 - Graceful shutdown handling
-
-## Configuration
-
-The client can be configured with a custom API URL:
-
-```go
-client := sdk.NewPaidClient("your-api-key", "https://custom-api-url.com")
-```
