@@ -95,13 +95,13 @@ func (c *PaidClient) Flush() {
 	body := map[string]any{"transactions": c.signals}
 	jsonBody, err := json.Marshal(body)
 	if err != nil {
-		c.logger.Error("Error marshalling signals: %v", err)
+		c.logger.Error("Error marshalling signals: %v", "error", err)
 		return
 	}
 
 	req, err := http.NewRequest("POST", c.apiURL+"/api/entries/bulk", bytes.NewBuffer(jsonBody))
 	if err != nil {
-		c.logger.Error("Request creation failed: %v", err)
+		c.logger.Error("Request creation failed: %v", "error", err)
 		return
 	}
 	req.Header.Set("Authorization", "Bearer "+c.apiKey)
@@ -109,7 +109,7 @@ func (c *PaidClient) Flush() {
 
 	resp, err := c.client.Do(req)
 	if err != nil {
-		c.logger.Error("Flush failed: %v", err)
+		c.logger.Error("Flush failed: %v", "error", err)
 		return
 	}
 	defer resp.Body.Close()
