@@ -20,7 +20,7 @@ type PaidClient struct {
 	apiKey    string
 	apiURL    string
 	signals   []any
-	mu        sync.Mutex
+	mu        sync.RWMutex
 	client    *http.Client
 	ticker    *time.Ticker
 	quit      chan struct{}
@@ -80,7 +80,9 @@ func (c *PaidClient) RecordUsage(agentID, customerID, eventName string, data any
 
 	if len(c.signals) >= 100 {
 		log.Println("Buffer reached 100, auto-flushing...")
+		c.mu.Unlock() // Temporarily unlock to allow Flush to proceed
 		c.Flush()
+		c.mu.Lock() // Re-lock for the defer
 	}
 }
 
