@@ -1,4 +1,4 @@
-# AgentPaid Go Client
+# Paid Go Client
 
 A Go client for interacting with the Paid API. This package allows you to send transaction events to the API.
 
